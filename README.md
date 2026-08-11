@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="The Bushido Harness — a conduct codex for AI coding agents" width="100%">
+</p>
+
 # The Bushido Harness
 
 **A four-discipline conduct codex that rides in an autonomous coding agent's context — so a capable agent also acts like a disciplined one.**
