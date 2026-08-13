@@ -125,3 +125,9 @@ Honestly (Makoto): the falsifiers are only as sharp as the checks behind them. "
 ---
 
 *This is the bushido edition of a small family of conduct harnesses — the same four disciplines, a different skin. If the warrior's code is not your language, another edition carries the identical spine under a different one. Pick the skin you will actually keep in context — the one that stays pasted is the one that works.*
+
+## License
+
+**MIT** — see [LICENSE](LICENSE). A [`CITATION.cff`](CITATION.cff) (CC-BY-4.0) gives the
+citable form. MIT keeps the one thing that actually protects users — the liability
+disclaimer — while letting the codex be pasted anywhere without attribution friction.
