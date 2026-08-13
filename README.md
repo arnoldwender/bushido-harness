@@ -78,7 +78,7 @@ The warrior's code is, at root, a discipline of **mastery, honor, and restraint*
 
 ## The first word
 
-Every session opens with two lines.
+Every session opens with the fixed banner and one rotating precept.
 
 A **fixed precept** — read the same way each time, under the banner:
 
