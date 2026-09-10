@@ -1,46 +1,45 @@
-# THE POOL DOCUMENT SAYS "All sources are public-domain." FOR THESE THREE LINES
-# THAT IS NOT TRUE, AND THIS FILE IS WHERE THAT WAS FOUND.
+# RESOLVED 2026-09-10. This file used to record three lines printed in English
+# wording that came from Victor Harris's 1974 translation. Harris died in 2017,
+# so under EU life-plus-70 that translation is protected until 2088, and this
+# repository is published from Germany. There is no public-domain English
+# translation of the Go Rin no Sho to fall back on: Harris's was the first, in
+# 1974, and everything since is later still.
 #
-# Musashi died in 1645, so the JAPANESE is public domain everywhere. The English
-# is a different work with its own copyright term, and that is the whole trap
-# the family already documented for translations.
+# So the pool no longer prints an English translation of Musashi at all. It
+# prints the 1645 JAPANESE, which is public domain beyond argument, with a short
+# English gloss in parentheses that is the repository editor's own work and is
+# labelled as such on the line itself. A gloss written here is an original
+# sentence owned by this repository; it is not a quotation from anyone, and it
+# does not pretend to be one.
 #
-# Measured 2026-09-10. Two of these three lines are Victor Harris's wording, and
-# it can be shown rather than guessed. The Ground Book's nine rules read, in
-# Harris's 1974 translation:
+# THE JAPANESE WAS VERIFIED AGAINST TWO INDEPENDENT TRANSCRIPTIONS, because one
+# transcription of a 17th-century manuscript is a claim, not a check:
 #
-#   1 Do not think dishonestly.        6 Develop intuitive judgement...
-#   2 The Way is in training.          7 Perceive those things which cannot be seen
-#   3 Become acquainted with every art 8 Pay attention even to trifles
-#   4 Know the Ways of professions     9 Do nothing which is of no use.
+#   * 日本古典文学摘集 (koten.net), 地の巻 九 and 水の巻 三八 - the base of the
+#     source_url below.
+#   * 五輪書研究会版テクスト (musasi.siritai.net), pages g105 and g207, which also
+#     prints the manuscript variants (細川家本, 楠家本, 石井家本, 富永家本,
+#     狩野文庫本) side by side.
 #
-# Numbers 2 and 9 are in this pool word for word.
-#
-# The third line, "Today is victory over yourself of yesterday", Wikiquote
-# places in the Water Book of Go Rin No Sho and credits to NO translator. Its
-# full circulating form is "...; tomorrow is your victory over lesser men",
-# which is the Harris phrasing. It could not be confirmed against a printed
-# copy, so this file says unverified rather than asserting Harris for it.
-#
-# VICTOR HARRIS: British Museum Japanese department, Overlook Press 1974, the
-# first English translation of Musashi and for a long time the only one. He died
-# in 2017. That single fact is what makes these three lines a live question for
-# a repository published from Germany, and it is why this file exists instead of
-# a one-line "public domain" claim.
+# The two agree on wording and differ only in orthography, which is what one
+# expects of a text surviving in several copyists' hands: koten.net gives
+# 「今日は昨日の我に勝ち」 where the 五輪書研究会 text gives 「今日ハ昨日の我に勝」.
+# The pool prints the koten.net form. Both transcriptions carry the same
+# colophon: 正保二年五月十二日, 新免武蔵, addressed to 寺尾孫之丞殿.
 work: "Go Rin no Sho (The Book of Five Rings)"
 author: "Miyamoto Musashi"
 author_born: 1583
 author_died: 1645
 year: 1645
-edition: "Written in the Reigando cave from 1643, completed in the second month of 1645; Musashi died on 13 June 1645. Musashi's birth year is given as c. 1583 and is not certain. English wording as circulated from Victor Harris, A Book of Five Rings, Allison and Busby / The Overlook Press, 1974. The Way is in training and Do nothing which is of no use are rules 2 and 9 of the Ground Book's nine; Today is victory over yourself of yesterday is placed in the Water Book."
-translator: "Victor Harris (attributed - see provenance_note)"
-translator_died: 2017
-pd_status_us: "The 1645 Japanese original is public domain. The ENGLISH IS NOT: Victor Harris's translation was published in 1974, far later than the pre-1930 US threshold, and remains in copyright in the United States."
-pd_status_eu: "The Japanese original is public domain - Musashi died 1645. The ENGLISH IS NOT PUBLIC DOMAIN IN THE EU: translator Victor Harris died 2017, and 2017 plus 70 means the translation is protected until 2088. This repository is published from Germany, where that term applies."
-source_url: "https://en.wikiquote.org/wiki/Miyamoto_Musashi"
-provenance: unverified
-provenance_note: "The attribution to Musashi and to Go Rin no Sho is sound; the ENGLISH WORDING is the problem. The Way is in training and Do nothing which is of no use match rules 2 and 9 of the Ground Book's nine rules in Victor Harris's 1974 translation, confirmed against a reproduction of that list. Today is victory over yourself of yesterday could not be confirmed against any printed edition - Wikiquote places it in the Water Book and credits no translator at all, and the circulating wording is the Harris phrasing. Consequence, and the reason this is not a footnote: PRECEPTS.md states that all sources are public-domain, and for these three lines that is false. The Japanese is public domain; the English is a 1974 translation whose translator died in 2017. Needs a decision from the author before this repository is made public: replace these with a public-domain rendering, license the Harris wording, or state plainly in PRECEPTS.md which lines are not public domain."
+edition: "Written in the Reigando cave from 1643 and completed in the second month of 1645; Musashi died on 13 June 1645. Musashi's birth year is given as c. 1583 and is not certain. Loci - 道の鍛錬する所 and 役に立ぬ事をせざる事 are rules 2 and 9 of the nine that close the 地之巻 (Earth scroll afterword, koten.net /gorin/gen/109/); 今日は昨日の我に勝ち opens the closing passage of the 水之巻 (Water scroll afterword, koten.net /gorin/gen/238/), whose next sentences are 千日の稽古を鍛とし、万日の稽古を錬とす."
+gloss: "The parenthesised English on each pool line is an editorial gloss written for this repository. It is NOT a translation quoted from any published edition, and it is marked as a gloss on the line itself so no reader can mistake it for one."
+pd_status_us: "Public domain in the United States. The Japanese text is Musashi's, completed in 1645 and in print for centuries - far beyond the pre-1930 threshold. NO TRANSLATION IS PRINTED, so no translator's term attaches to anything in this file."
+pd_status_eu: "Public domain in the EU. Miyamoto Musashi died in 1645, so life plus 70 ran out in 1715 and the Japanese is free in Germany, where this repository is published. No translator's term runs against it either, because no translation is printed: the parenthesised English is the editor's own gloss, an original line owned by this repository and released under its MIT licence. This is what replaced the Victor Harris wording, which was NOT free - Harris died in 2017, so 2017 plus 70 protects his 1974 translation until 2088."
+source_url: "https://www.koten.net/gorin/"
+source_url_secondary: "https://musasi.siritai.net/themusasi2/gorin/g105.html"
+provenance: verified
+provenance_note: "Verified on 2026-09-10 against two independent Japanese transcriptions that agree on wording and differ only in orthography; the loci are named in `edition`. What is quoted is the Japanese only. The English in parentheses is the editor's gloss and is declared as such both here and on the printed line. Recorded so it is not lost: the previous version of this pool printed English wordings taken from Victor Harris's 1974 translation - rules 2 and 9 of the Earth scroll read, in Harris, 'The Way is in training' and 'Do nothing which is of no use', and the third line circulated as 'Today is victory over yourself of yesterday'. That third one could never be tied to a printed edition at all; the Japanese behind it has now been found and is quoted here."
 quotes:
-  - "Today is victory over yourself of yesterday."
-  - "The Way is in training."
-  - "Do nothing which is of no use."
+  - "今日は昨日の我に勝ち (editor's gloss: today, win against the self of yesterday)"
+  - "道の鍛錬する所 (editor's gloss: the tempering of the Way by training)"
+  - "役に立ぬ事をせざる事 (editor's gloss: not doing what serves no purpose)"

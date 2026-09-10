@@ -1,21 +1,41 @@
-# The one line in this pool that is genuinely public domain in both
-# jurisdictions, and the only one that needed no caveat.
+# The one file in this repository that never needed fixing, now carrying two
+# lines instead of one.
 #
-# Verified verbatim on 2026-09-10 against the OCR of the printed volume from the
-# Internet Archive (identifier wg939, Sacred Books of the East Vol. 39, 1891),
-# chapter 33.1:
+# Verified verbatim on 2026-09-10 against the OCR of the printed volume on the
+# Internet Archive (identifier wg939, Sacred Books of the East Vol. 39, 1891):
 #
-#   "He who knows other men is discerning; he who knows himself is intelligent.
-#   He who overcomes others is strong; he who overcomes himself is mighty. He
-#   who is satisfied with his lot is rich..."
+#   33.1  "He who knows other men is discerning; he who knows himself is
+#          intelligent. He who overcomes others is strong; he who overcomes
+#          himself is mighty. He who is satisfied with his lot is rich..."
 #
-# The pool prints the second sentence exactly.
+#   64.2  "The tree which fills the arms grew from the tiniest sprout; the tower
+#          of nine storeys rose from a (small) heap of earth; the journey of a
+#          thousand li commenced with a single step."
 #
-# WHY THIS ONE CLEARS AND ITS NEIGHBOURS DO NOT: James Legge died in 1897. EU
+# The pool prints one sentence of 33.1 whole, and the last clause of 64.2 with
+# an editorial capital T where Legge has a semicolon before it.
+#
+# WHY THIS ONE CLEARS AND ITS NEIGHBOURS DID NOT: James Legge died in 1897. EU
 # life-plus-70 put his translations in the public domain in 1968. Compare the
-# Sun Tzu entry, where Lionel Giles died in 1958 and the same arithmetic runs to
-# 2029. Same shelf, same century of scholarship, sixty-one years apart in the
-# one number that decides it.
+# Sun Tzu entry, where Lionel Giles died in 1958 and the same arithmetic ran to
+# 2029, which is why that line had to change translators. Same shelf, same
+# century of scholarship, sixty-one years apart in the one number that decides
+# it.
+#
+# 64.2 IS ALSO THE FILE'S SECOND JOB. The pool used to carry, in a separate
+# source file, "A journey of a thousand miles begins with a single step" -
+# credited to Lao Tzu and belonging to no published translation anyone could
+# find. The Chinese, verified against Chinese Wikisource, is 千里之行，始於足下,
+# chapter 64: a journey of a thousand LI starts BENEATH ONE'S FEET. Neither
+# "miles" nor "a single step" is in it. Legge 1891 writes "the journey of a
+# thousand li commenced with a single step"; Waley 1934 writes "The journey of a
+# thousand miles began with a foot put down"; the circulating sentence is
+# neither, and Wikipedia's own article on the saying attributes it to no
+# translator at all. It was the proverb as English absorbed it - smoothed,
+# re-measured into miles, detached from any edition, and printed here inside
+# quotation marks with a name after it. That line is retired. Legge's actual
+# rendering of the same passage takes its place, which is the fix the sibling
+# harness in this family had already proven.
 #
 # The author is the uncertain part, not the text: Laozi's historicity is
 # disputed and the dates below are the traditional ones from Sima Qian.
@@ -25,12 +45,15 @@ author_born: -604
 author_died: -531
 year: -400
 posthumous: true
-edition: "James Legge, The Texts of Taoism Part I, Sacred Books of the East Vol. 39, Clarendon Press, Oxford, 1891; chapter 33.1. Laozi's dates are the traditional ones reported by Sima Qian and are not independently documented; the received text is dated to the 4th-3rd century BC, hence the posthumous flag."
+edition: "James Legge, The Texts of Taoism Part I, Sacred Books of the East Vol. 39, Clarendon Press, Oxford, 1891; chapters 33.1 and 64.2. Laozi's dates are the traditional ones reported by Sima Qian and are not independently documented; the received text is dated to the 4th-3rd century BC, hence the posthumous flag. The Chinese behind the two lines, verified against the Wang Bi recension on Chinese Wikisource, is 勝人者有力，自勝者強 (ch. 33) and 千里之行，始於足下 (ch. 64)."
 translator: "James Legge"
 translator_died: 1897
 pd_status_us: "Public domain in the United States. Legge's translation was published in 1891, well before the pre-1930 threshold."
 pd_status_eu: "Public domain in the EU. Translator James Legge died 1897; 1897 plus 70 is 1967, so the translation entered the EU public domain in 1968 - clear in Germany, where this repository is published."
 source_url: "https://archive.org/details/wg939"
+source_url_secondary: "https://zh.wikisource.org/wiki/%E9%81%93%E5%BE%B7%E7%B6%93_(%E7%8E%8B%E5%BC%BC%E6%9C%AC)"
 provenance: verified
+provenance_note: "Both lines verified verbatim on 2026-09-10 against the printed 1891 volume, and the Chinese verified independently against the Wang Bi recension on Chinese Wikisource. One editorial liberty, declared: chapter 64's line is the last of three clauses in Legge's sentence, so its initial capital stands where he has a semicolon. It replaced 'A journey of a thousand miles begins with a single step', which corresponded to no published translation at all - the finding that retired it is written out in full at the head of this file rather than deleted with the source that carried it."
 quotes:
   - "He who overcomes others is strong; he who overcomes himself is mighty."
+  - "The journey of a thousand li commenced with a single step."

@@ -1,40 +1,44 @@
-# The two Dokkodo lines. The work is certain; the English has no translator at
-# all, and that is not a small gap - it means the copyright status of the words
-# actually printed here CANNOT BE ESTABLISHED.
+# RESOLVED 2026-09-10. This file used to say the hardest thing in the audit:
+# these two lines were printed in English with NO IDENTIFIABLE TRANSLATOR, so
+# their copyright term could not be calculated in either jurisdiction. Unknown
+# is not the same as expired, and a term nobody can compute cannot be cleared.
 #
-# Measured 2026-09-10. Both lines are precepts of the Dokkodo, in the standard
-# order:
+# The fix is the same one used for the Go Rin no Sho: stop printing an English
+# translation. The pool now prints the 1645 JAPANESE, which is public domain
+# without argument, plus a short editorial gloss marked as a gloss on the line.
 #
-#   1  Accept everything just the way it is.
-#   4  Think lightly of yourself and deeply of the world.
+# THE SOURCE IS THE MANUSCRIPT ITSELF, not a quotation site. Japanese Wikisource
+# transcribes the 獨行道 scroll held by the Kumamoto Prefectural Museum of Art
+# (熊本県立美術館蔵, 紙本墨書, 16.8cm x 98.8cm, 1645), giving both the variant-kana
+# reading and a 変体仮名修正版 in modern kana. The pool prints the modern-kana
+# reading of precepts 1 and 4:
 #
-# The Dokkodo itself is solid: 21 precepts, written about a week before Musashi
-# died in 1645, given to his disciple Terao Magonojo as he disposed of his
-# possessions.
+#   一 世々の道をそむく事なし          (precept 1)
+#   一 身をあさく思世をふかく思ふ      (precept 4)
 #
-# WHAT IS MISSING IS THE TRANSLATOR. Wikiquote reproduces this exact English
-# list and cites, for the whole section, a single blog URL - no translator, no
-# edition, no year. That is the entire provenance available for a wording this
-# repo prints in quotation marks with a name after it. A 1992 translation by
-# Colin Hyakutake-Watkin is documented to exist, and Victor Harris's 1974 volume
-# is often bound with a rendering of the Dokkodo, but whether either produced
-# THIS wording could not be confirmed, and guessing would be the fabrication
-# this gate exists to prevent.
+# Colophon on the same sheet: 正保弐年 五月十二日, 新免武藏 玄信 (花押),
+# addressed to 寺尾孫之丞殿 - Terao Magonojo, the disciple to whom Musashi gave
+# the scroll about a week before he died.
 #
-# So the honest statement is the uncomfortable one: nobody can currently say
-# whether these two lines are free to publish. An unknown translator is not the
-# same as no translator.
+# ONE THING WORTH SAYING OUT LOUD, because it is a correction and not only a
+# licence fix. The English formerly printed for precept 1 was "Accept everything
+# just the way it is." 世々の道をそむく事なし does not say that. 世々 is the
+# successive ages, 道 the Ways handed down, そむく to turn against: the precept is
+# about not turning your back on inherited Ways, not about acceptance of
+# circumstance. The old line was unsourceable AND loose. The gloss below follows
+# the Japanese.
 work: "Dokkodo (The Way of Walking Alone)"
 author: "Miyamoto Musashi"
 author_born: 1583
 author_died: 1645
 year: 1645
-edition: "21 precepts, written about one week before Musashi's death on 13 June 1645 and given to his disciple Terao Magonojo. The two lines used here are precepts 1 and 4. Musashi's birth year is given as c. 1583 and is not certain. NO EDITION IS NAMED for the English wording, because none could be identified."
-pd_status_us: "The 1645 Japanese original is public domain. The STATUS OF THE ENGLISH CANNOT BE ESTABLISHED: no translator and no edition could be identified, so there is no publication date to measure against the pre-1930 threshold."
-pd_status_eu: "The Japanese original is public domain - Musashi died 1645. THE ENGLISH CANNOT BE CLEARED: EU protection for a translation runs for the translator's life plus 70 years, and the translator here is unknown, so the term cannot be calculated. Unknown is not the same as expired."
-source_url: "https://en.wikiquote.org/wiki/Miyamoto_Musashi"
-provenance: unverified
-provenance_note: "The work, the date and the precept numbers are verified - these are precepts 1 and 4 of the Dokkodo, written a week before Musashi died in 1645. THE TRANSLATOR IS UNKNOWN. Wikiquote reproduces this exact English list and cites one blog URL for the whole section, with no translator, edition or year. A 1992 translation by Colin Hyakutake-Watkin exists and Victor Harris's 1974 volume is often bound with a Dokkodo rendering, but neither could be confirmed as the source of THIS wording. Because the translator is unknown, the copyright term cannot be calculated in either jurisdiction, which directly contradicts the claim in PRECEPTS.md that all sources are public-domain. Needs a decision from the author: identify the edition, commission or write a rendering that can be cleared, or say in PRECEPTS.md that these lines are of unestablished status."
+edition: "21 precepts, written about a week before Musashi's death on 13 June 1645 and given to his disciple Terao Magonojo. The two lines used here are precepts 1 and 4. Musashi's birth year is given as c. 1583 and is not certain. Transcribed from the scroll in the Kumamoto Prefectural Museum of Art (熊本県立美術館蔵) by Japanese Wikisource, which prints both the original variant kana and a 変体仮名修正版 in modern kana; the pool uses the modern-kana reading."
+gloss: "The parenthesised English on each pool line is an editorial gloss written for this repository. It is NOT a translation quoted from any published edition, and it is marked as a gloss on the line itself."
+pd_status_us: "Public domain in the United States. The Japanese text dates from 1645, far beyond the pre-1930 threshold. NO TRANSLATION IS PRINTED, so no translator's term attaches."
+pd_status_eu: "Public domain in the EU. Miyamoto Musashi died in 1645, so life plus 70 ran out in 1715 and the Japanese is free in Germany, where this repository is published. No translator's term applies because no translation is printed: the parenthesised English is the editor's own gloss, an original line owned by this repository and released under its MIT licence. This is what replaced an English wording whose translator could never be identified - and an unknown translator means an uncomputable term, not an expired one."
+source_url: "https://ja.wikisource.org/wiki/%E7%8D%A8%E8%A1%8C%E9%81%93"
+provenance: verified
+provenance_note: "Verified on 2026-09-10 against Japanese Wikisource's transcription of the Kumamoto Prefectural Museum of Art scroll, which carries the museum's shelf description and the 正保弐年五月十二日 colophon. What is quoted is the Japanese only; the English in parentheses is the editor's gloss and is declared as such on the printed line. Recorded so it is not lost: the previous pool printed 'Accept everything just the way it is' and 'Think lightly of yourself and deeply of the world' - an English list Wikiquote reproduces while citing a single blog URL for the whole section, with no translator, edition or year. A 1992 translation by Colin Hyakutake-Watkin exists and Victor Harris's 1974 volume is often bound with a Dokkodo rendering, but neither could be confirmed as the origin of that wording, and guessing would have been the fabrication this gate exists to prevent."
 quotes:
-  - "Accept everything just the way it is."
-  - "Think lightly of yourself and deeply of the world."
+  - "世々の道をそむく事なし (editor's gloss: never turn your back on the Ways handed down through the ages)"
+  - "身をあさく思世をふかく思ふ (editor's gloss: think of yourself shallowly and of the world deeply)"
