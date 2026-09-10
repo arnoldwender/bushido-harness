@@ -93,13 +93,57 @@ And a **rotating precept of the day**, drawn from public-domain samurai wisdom a
 
 An opening line is cheap priming. The precept that greets the session is the posture the session inherits.
 
+## The gate — 義 Gi, made executable
+
+One rule in this codex is not a matter of judgment, and it is the one an agent breaks fastest under pressure: **minimum force — reach for the reversible before the irreversible.** [`gate/irreversible.py`](gate/irreversible.py) turns it into a check. It reads the **added** lines of a diff (or a script handed to it directly) and reports the command that has no undo.
+
+```sh
+python3 gate/irreversible.py                       # diff against origin/main
+python3 gate/irreversible.py --base HEAD           # diff against another ref
+python3 gate/irreversible.py --script deploy.sh    # one script, whole file
+python3 gate/irreversible.py --sarif out.json      # SARIF 2.1.0 for CI
+```
+
+Exit `0` clean · `1` findings · `2` the gate itself failed. The third is the load-bearing one: a checker that returns `1` when it crashed reads as *"I found something"*, and one that returns `0` reads as *"clean"* and fails open. When the base ref cannot be resolved this gate says so and exits `2`, rather than reporting an empty diff as a clean bill of health.
+
+### What it fires on
+
+| Check | Fires | Stays quiet |
+| --- | --- | --- |
+| `rm-rf` | `rm -rf` / `-fr` / `-r -f` / `--recursive --force` aimed at a tracked path, a path inside the repo, or one it cannot prove disposable | `node_modules`, `dist`, `build`, `target`, `coverage`, `.cache`, `.venv`, `__pycache__`, anything under `/tmp`, `*.log`, a fresh `$(mktemp -d)` |
+| `git-destructive` | `git reset --hard`; `git clean -fd…` with no path or a tracked one; `git push --force` / `-f`; `git filter-repo`; `git filter-branch` | `--force-with-lease`, `git reset --soft`, `git clean` scoped to a rebuildable path, `filter-repo --dry-run` |
+| `sql-destructive` | `DROP TABLE` / `DATABASE` / `SCHEMA`, `TRUNCATE`, `DELETE FROM` with no `WHERE` | `DELETE FROM … WHERE …` — including a `WHERE` on the next line — and the shell's own `truncate -s` |
+| `cloud-destructive` | `aws s3 rm --recursive`, `terraform destroy` and `apply -destroy`, `kubectl delete` without `--dry-run`, `docker system prune -a` | `terraform plan -destroy`, `kubectl delete --dry-run=client`, `docker system prune` without `-a`, a single-key `aws s3 rm` |
+| `git-hook-removal` | `rm` / `mv` / `shred` / `truncate` / `chmod -x` on `.git/hooks/…` or a file named for a git hook | installing or updating a hook |
+| `unexpanded-target` | a destructive command whose target hides behind a variable — reported at `warning`, and a warning still fails the gate | a target the gate can read |
+| `bad-allowlist-entry` | an allowlist line that is neither a usable path nor a valid regex, so it silences nothing | — |
+
+**The target decides, not the verb.** That is the whole design. An agent clearing its own scratch directory writes the same three characters as the command that eats a repository, and a gate that cannot tell them apart gets switched off in a week — after which it reports nothing forever, which looks exactly like a clean repo. So `rm -rf node_modules` passes and `rm -rf src/lib` does not. Same rule in SQL: a `DELETE` with a predicate is a statement about some rows; without one it is a statement about all of them.
+
+Documentation is skipped whole — `.md`, `.rst`, `.txt` — along with comment lines, docstrings and fenced blocks inside code. A README that shows a destructive command is teaching, not running. Real exceptions go in [`.conduct/irreversible-allow.txt`](.conduct/irreversible-allow.txt), one path or regex per line, with the reason next to it.
+
+### Does the check have teeth?
+
+[`tests/test_irreversible.py`](tests/test_irreversible.py) gives every pattern the same pair: the destructive command on a path that cannot be rebuilt must go **red**, and the identical command on a rebuildable path must stay **green**. [`tests/mutation_check.py`](tests/mutation_check.py) then removes each mechanism in turn — the five checks, the four discriminators, the two guards — and requires the suite to go red without it. A test that still passes with the mechanism deleted was never testing it. Both run in CI, in [`.github/workflows/gate.yml`](.github/workflows/gate.yml).
+
+### What it does not automate — plainly, because Makoto is not traded
+
+This gate covers **one rule of sixteen**: Gi 義 · 2. Nothing else in the codex is enforced by it.
+
+- **Rei 礼** — whether you healed the file in passing, and whether cleanup stayed inside the task: **not checked**.
+- **Gi 義 1, 3, 4** — the gleaming shortcut, verifying the confident answer, and "done is what the gates return": **not checked here**. The last of the three is what [`scripts/check.py`](scripts/check.py) does to this repo's own claims — but only to this repo's.
+- **Makoto 誠** — whether the report matches the state: **not checkable by a linter**, and pretending otherwise would itself break the rule.
+- **Chugi 忠義** — whether the work was finished or abandoned: **not checked**.
+
+It also has limits inside its own rule, stated so they stay decisions rather than surprises: `rm -r` without `-f` does not fire; a path is judged by its name, so a tracked directory someone named `build/` reads as rebuildable; a destructive command in an arbitrary string literal in the middle of a code line is judged like any other code; and only the added side of a diff is read.
+
 ## Status
 
 Early, but real.
 
-This is a codex plus reference wiring — not a framework. There is nothing to install and nothing to lock into. What ships with it: the **session-start hook**, a couple of **starter agents** already carrying the codex, and one **worked before/after example** — the same task run without the harness and with it, where the visible difference is *where it declares "done."*
+This is a codex plus reference wiring — not a framework. There is nothing to install and nothing to lock into. What ships with it: the **session-start hook**, a couple of **starter agents** already carrying the codex, one **worked before/after example** — the same task run without the harness and with it, where the visible difference is *where it declares "done"* — and one **executable gate**, [`gate/irreversible.py`](gate/irreversible.py), which is Gi 義 · 2 turned into a check that runs.
 
-Honestly (Makoto): the falsifiers are only as sharp as the checks behind them. "Done is what the gates return" assumes you have gates — the harness names the discipline; you still bring the build. It is small on purpose, and it grows by use. Precepts, starter agents, and better falsifiers are the parts most worth contributing.
+Honestly (Makoto): the falsifiers are only as sharp as the checks behind them, and **one of sixteen now has a check behind it.** The other fifteen are still prose you hold yourself to. "Done is what the gates return" assumes you have gates — the harness names the discipline; you still bring the build. It is small on purpose, and it grows by use. Precepts, starter agents, and better falsifiers are the parts most worth contributing.
 
 ---
 

@@ -1,0 +1,66 @@
+# Gi 義 rule 2 says reach for the reversible before the irreversible. This is the
+# gate that holds the repo to it: gate/irreversible.py reads the added lines of
+# the diff and reports the destructive command that has no undo.
+#
+# scripts/check.py is deliberately NOT repeated here. The `check` workflow
+# already runs it on the same events and it is the required status check; a
+# second copy would double the Actions minutes this repo went out of its way to
+# reduce.
+#
+# No step interpolates untrusted input into a shell. The only expressions are
+# `github.workflow` and `github.ref` inside `concurrency`, which never reach a
+# `run:`. Nothing here reads an issue title, a branch name or a commit message.
+name: gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  irreversible:
+    name: irreversibility gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The gate diffs against a base ref, so the base has to be in the
+          # clone. A shallow checkout makes it unresolvable, and the gate
+          # answers that with exit 2 rather than an empty diff read as clean.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Make the base ref reachable
+        run: git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
+
+      - name: Irreversibility gate
+        run: python3 gate/irreversible.py --base origin/main --sarif irreversible.sarif
+
+      - name: Mutation check (do the tests defend the gate?)
+        run: python3 tests/mutation_check.py
+
+      - name: Tests
+        run: python3 -m pytest tests/ -q
+
+      - name: Upload SARIF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: irreversible-sarif
+          path: irreversible.sarif
+          if-no-files-found: ignore
