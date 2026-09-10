@@ -505,6 +505,29 @@ def test_script_mode_reads_the_whole_file_not_just_a_diff(repo: Path) -> None:
     assert "legacy.sh" in r.stdout
 
 
+def test_a_named_script_is_judged_even_in_a_disposable_location(repo: Path) -> None:
+    """The gate filters what it discovers, never what it was handed.
+
+    The bug this defends against shipped and was caught by running the gate on
+    a real script: `--script /tmp/deploy.sh` answered "0 lines inspected" and
+    exited 0, because the path lived under a directory the gate reads as
+    scratch. A file the caller names has already been judged relevant by the
+    caller.
+    """
+    add_line(repo, "node_modules/pkg/clean.sh", "rm -rf src/lib")
+    assert gate(repo).returncode == 0, "diff mode still skips a vendored tree"
+    r = run(repo, "--script", "node_modules/pkg/clean.sh")
+    assert r.returncode == 1, r.stdout + r.stderr
+    assert "rm-rf" in r.stdout
+
+
+def test_a_named_file_the_gate_judged_nothing_in_says_so(repo: Path) -> None:
+    """Silence and "0 lines inspected" print almost identically to a reader."""
+    r = run(repo, "--script", "docs/RUNBOOK.md")
+    assert r.returncode == 0, r.stdout
+    assert "holds no line to judge" in r.stdout
+
+
 # --- SARIF -------------------------------------------------------------------
 
 def test_sarif_is_written_and_well_formed(repo: Path, tmp_path: Path) -> None:

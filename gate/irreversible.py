@@ -164,11 +164,16 @@ class Finding:
 class Entry:
     """One line the gate is allowed to judge: added by the diff, or from a
     --script. `statement` carries the following lines up to the first `;`, so a
-    multi-line SQL statement is read as one statement and not as one line."""
+    multi-line SQL statement is read as one statement and not as one line.
+
+    `explicit` marks a line that came from a file the caller named. The gate
+    filters what it DISCOVERS; it never filters away what it was handed.
+    """
     path: str
     line: int
     text: str
     statement: str = ""
+    explicit: bool = False
 
 
 # --- git ---------------------------------------------------------------------
@@ -259,7 +264,8 @@ def scan_script(spec: str) -> list[Entry]:
         raise GateFailure(f"--script {spec}: no such file")
     rel = rel_to_root(p)
     text = p.read_text(encoding="utf-8", errors="replace")
-    return [Entry(rel, n, line) for n, line in enumerate(text.splitlines(), 1)]
+    return [Entry(rel, n, line, explicit=True)
+            for n, line in enumerate(text.splitlines(), 1)]
 
 
 def collect(base: str | None, scripts: list[str]) -> tuple[list[Entry], str | None]:
@@ -366,8 +372,17 @@ def drop_ephemeral_files(entries: list[Entry]) -> list[Entry]:
 
     Vendored and generated trees are full of destructive commands nobody wrote
     and nobody reviews. Judging them produces noise and no decision.
+
+    A file the caller named with --script is exempt, and the exemption is the
+    whole reason this reads `e.explicit or`. Without it the gate answered
+    `--script /tmp/deploy.sh` with "0 lines inspected, clean": the path lives
+    under /tmp, so the file the caller explicitly asked about was filtered away
+    as scratch. That is the fail-open the exit-code contract exists to prevent,
+    and it was found by running the shipped gate on a real script rather than
+    by reading the code. Discovery gets filtered. A request does not.
     """
-    return [e for e in entries if classify_target(e.path)[0] != "ephemeral"]
+    return [e for e in entries
+            if e.explicit or classify_target(e.path)[0] != "ephemeral"]
 
 
 def attach_statements(entries: list[Entry]) -> list[Entry]:
@@ -841,8 +856,12 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     findings: list[Finding] = []
+    entries: list[Entry] = []
+    requested: list[str] = []
+    base_used: str | None = None
     try:
         entries, base_used = collect(args.base, args.script)
+        requested = sorted({e.path for e in entries if e.explicit})
         entries = drop_doc_context(entries)
         entries = drop_ephemeral_files(entries)
         entries = attach_statements(entries)
@@ -864,6 +883,16 @@ def main(argv: list[str] | None = None) -> int:
     scope = f"base {base_used}" if base_used else "scripts only"
     files = len({e.path for e in entries})
     print(f"irreversible: {len(entries)} line(s) inspected across {files} file(s) [{scope}]")
+
+    # "0 lines inspected" and "clean" print almost the same for a reader in a
+    # hurry. When a file was named on the command line and nothing in it was
+    # judged, say so instead of letting the verdict imply it was read.
+    inspected = {e.path for e in entries}
+    for path in requested:
+        if path not in inspected:
+            print(f"  note: {path} was handed over but holds no line to judge - "
+                  f"every line reads as documentation or comment")
+
     for f in sorted(findings, key=lambda x: (x.path, x.line)):
         where = f"{f.path}:{f.line}" if f.line else (f.path or ".")
         print(f"  {f.level.upper():<7} [{f.check}] {where}: {f.message}")
