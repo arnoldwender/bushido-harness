@@ -1,0 +1,41 @@
+# The work is certain, the author is certain, and the English is modern - which
+# is enough to settle the copyright question even though the exact translator
+# could not be pinned down.
+#
+# Verified 2026-09-10. Yagyu Munenori, 1571-1646, wrote the Heiho kadensho (A
+# Hereditary Book on the Art of War) in 1632. That much is documented.
+#
+# WHICH TRANSLATOR IS THE OPEN QUESTION. The wording used here appears on
+# terebess.hu, a page that sets three English versions of the Heiho kadensho
+# side by side - Thomas Cleary's, William Scott Wilson's The Life-Giving Sword
+# (Kodansha, 2003), and Hiroaki Sato's The Sword and the Mind - and attributes
+# this particular sentence to CLEARY. That is a single source, and it was not
+# confirmed against Cleary's printed book, so this file says attributed rather
+# than asserting it.
+#
+# THE COPYRIGHT ANSWER DOES NOT DEPEND ON WHICH ONE IT IS, and that is the point
+# worth keeping. All three candidates are modern and all three are in copyright:
+#
+#   Thomas Cleary        died 2021  -> EU protection to 2092
+#   William Scott Wilson born 1944, living
+#   Hiroaki Sato         died 2022
+#
+# There is no reading of the evidence on which this line is public domain, and
+# PRECEPTS.md says all sources are. The translator_died field carries Cleary's
+# year because that is the attributed candidate; naming any of the three
+# produces the same verdict.
+work: "Heiho kadensho (A Hereditary Book on the Art of War)"
+author: "Yagyu Munenori"
+author_born: 1571
+author_died: 1646
+year: 1632
+edition: "Written 1632. English wording attributed to Thomas Cleary's translation by terebess.hu, which reproduces three English versions side by side; not confirmed against Cleary's printed edition. The other two candidates on that page are William Scott Wilson, The Life-Giving Sword, Kodansha International, 2003, and Hiroaki Sato, The Sword and the Mind."
+translator: "Thomas Cleary (attributed, not confirmed - see provenance_note)"
+translator_died: 2021
+pd_status_us: "The 1632 Japanese original is public domain. THE ENGLISH IS NOT: every candidate translation is modern - Cleary, Wilson 2003, Sato - and all are far later than the pre-1930 US threshold. In copyright in the United States whichever one it is."
+pd_status_eu: "The Japanese original is public domain - Munenori died 1646. THE ENGLISH IS NOT PUBLIC DOMAIN IN THE EU: the attributed translator Thomas Cleary died 2021, so 2021 plus 70 protects that translation until 2092. The alternative candidates give the same answer - Hiroaki Sato died 2022, and William Scott Wilson, born 1944, is living. No candidate is public domain."
+source_url: "https://terebess.hu/zen/mesterek/Munenori.html"
+provenance: unverified
+provenance_note: "Author, work and date are verified: Yagyu Munenori, 1571-1646, Heiho kadensho, 1632. The TRANSLATOR is attributed to Thomas Cleary on the strength of one page, terebess.hu, and was not confirmed against a printed edition. That uncertainty does not change the outcome that matters: all three candidate translations - Cleary, Wilson 2003, Sato - are modern and in copyright in both jurisdictions, so this line is not public domain on any reading, contradicting PRECEPTS.md. Needs a decision from the author: confirm and clear the translation, or replace the line."
+quotes:
+  - "To fix the mind obsessively on anything is considered sickness."

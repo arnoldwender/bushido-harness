@@ -1,0 +1,40 @@
+# Two separate problems in one line, and the second one is easy to miss.
+#
+# PROBLEM ONE - COPYRIGHT. The English is William Scott Wilson's, from his
+# translation of the Hagakure (Kodansha International, 1979). Wilson was born in
+# 1944 AND IS ALIVE. There is no arithmetic to do: the translation is in
+# copyright in the United States and in the EU, and will be for his lifetime
+# plus seventy years. This is the least ambiguous non-public-domain line in the
+# pool, and PRECEPTS.md currently says all sources are public-domain.
+#
+# PROBLEM TWO - ATTRIBUTION. The pool credits the line to Yamamoto Tsunetomo.
+# In the Hagakure it is not his. Book One reads:
+#
+#   "Among the maxims on Lord Naoshige's wall there was this one: 'Matters of
+#   great concern should be treated lightly.' Master Ittei commented, 'Matters
+#   of small concern should be treated seriously.'"
+#
+# So Tsunetomo is QUOTING a maxim he found on Nabeshima Naoshige's wall, and
+# then reporting Ittei's reply to it. Attributing it flatly to Tsunetomo is the
+# same species of error as citing a line of dialogue to the novelist - not a
+# fabrication, but not accurate either, and invisible to anyone who only ever
+# meets the sentence as a standalone quotation.
+#
+# Verified 2026-09-10 against Wikiquote's Yamamoto Tsunetomo entry, which
+# reproduces the surrounding passage and explicitly credits Wilson's 1979
+# translation (ISBN 4770011067).
+work: "Hagakure (The Book of the Samurai)"
+author: "Yamamoto Tsunetomo (quoting a maxim of Nabeshima Naoshige - see provenance_note)"
+author_born: 1659
+author_died: 1719
+year: 1716
+edition: "Dictated to Tashiro Tsuramoto c. 1709-1716. The line is in Book One, where Tsunetomo reports it as one of the maxims on Lord Naoshige's wall and records Master Ittei's reply. English from William Scott Wilson's translation, Kodansha International, 1979 (ISBN 4770011067)."
+translator: "William Scott Wilson"
+translator_died: "not applicable - born 1944, living translator"
+pd_status_us: "The Japanese original is public domain. THE ENGLISH IS NOT: William Scott Wilson's translation was published in 1979, far later than the pre-1930 US threshold, and Wilson is alive. In copyright in the United States."
+pd_status_eu: "The Japanese original is public domain - Tsunetomo died 1719. THE ENGLISH IS NOT PUBLIC DOMAIN AND WILL NOT BE FOR A VERY LONG TIME: EU protection runs for the translator's life plus 70 years, and William Scott Wilson, born 1944, is living. No end date can be given because the term has not started running."
+source_url: "https://en.wikiquote.org/wiki/Yamamoto_Tsunetomo"
+provenance: unverified
+provenance_note: "Two findings. FIRST, the English is William Scott Wilson's 1979 translation and Wilson is alive, so the line is in copyright in both jurisdictions - not public domain, contradicting PRECEPTS.md. SECOND, the attribution is imprecise: in Hagakure Book One this is not Tsunetomo's own maxim but one he reports from the wall of Lord Nabeshima Naoshige, with Master Ittei's reply attached. Crediting it flatly to Tsunetomo is the kind of small slippage that survives every reading because the sentence normally travels alone. Needs a decision from the author: clear or replace the Wilson wording, and correct the attribution to name Naoshige."
+quotes:
+  - "Matters of great concern should be treated lightly."
