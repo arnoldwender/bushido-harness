@@ -84,7 +84,7 @@ A **fixed precept** — read the same way each time, under the banner:
 
 > *"Today is victory over yourself of yesterday."* — Miyamoto Musashi
 
-And a **rotating precept of the day**, drawn from public-domain samurai wisdom and the classical East Asian texts the samurai studied. The pool is [`precepts.txt`](precepts.txt), one `Precept — Author` per line, documented in [`PRECEPTS.md`](PRECEPTS.md). Four of the eleven, with the discipline each sharpens:
+And a **rotating precept of the day**, drawn from the samurai canon and the classical East Asian texts the samurai studied. The pool is [`precepts.txt`](precepts.txt), one `Precept — Author` per line, documented in [`PRECEPTS.md`](PRECEPTS.md). Four of the eleven, with the discipline each sharpens:
 
 - *"Do nothing which is of no use."* — Miyamoto Musashi → **Rei**: the tidying serves the task; nothing else rides along in the diff.
 - *"Supreme excellence consists in breaking the enemy's resistance without fighting."* — Sun Tzu → **Gi**: minimum force; the blade is drawn last.
@@ -92,6 +92,25 @@ And a **rotating precept of the day**, drawn from public-domain samurai wisdom a
 - *"The Way is in training."* — Miyamoto Musashi → **Chugi**: the duty is the work finished, and the finishing is the practice.
 
 An opening line is cheap priming. The precept that greets the session is the posture the session inherits.
+
+**A correction, and it is the honest kind.** This section used to say the pool was drawn from *public-domain* samurai wisdom, and [`PRECEPTS.md`](PRECEPTS.md) used to state flatly that all sources were public domain. The audit of 2026-09-10 found that false. The Japanese and Chinese **originals** are all long out of copyright — but an English **translation is a separate work with its own term**, and several of these are still running: the Musashi wordings are the ones circulated from Victor Harris's 1974 translation (Harris died 2017); the Sun Tzu lines are Lionel Giles's 1910 rendering, public domain in the US but not in the EU until 2029 (Giles died 1958); the Hagakure line is William Scott Wilson's 1979 translation and Wilson is living. Arnold publishes from Germany, so the EU term is the one that binds. The full arithmetic, line by line, is in [`sources/`](sources/) and summarised in [`PRECEPTS.md`](PRECEPTS.md). **The pool is unchanged** — what to do about it is a deliberate decision, not a cleanup, and it has not been taken.
+
+## The second gate — 誠 Makoto, made executable
+
+[`scripts/check.py`](scripts/check.py) proves the README quotes a line the emitter really emits. It cannot tell you whether that line was ever written by the person named beside it, or whether you may lawfully print it. Four of the ten harnesses in this family shipped fabricated citations before anyone noticed — that is **誠 Makoto 4**, *invent nothing: no fabricated number, citation, source, path, or command*, failing in the one way no reader can catch.
+
+[`gate/citations.py`](gate/citations.py) closes it. Every attributed quotation in the README, [`PRECEPTS.md`](PRECEPTS.md), [`CODEX.md`](CODEX.md), [`codex-block.md`](codex-block.md) and [`EXAMPLE.md`](EXAMPLE.md) must resolve to a file in [`sources/`](sources/) carrying work, author, the author's dates, year, **public-domain status per jurisdiction**, and a source URL. Miss any field and it fails, because a quotation is not sourced until someone who is not us can check it. Exit `0` clean · `1` findings · `2` the gate itself failed — the family contract.
+
+Two of its checks did the work here:
+
+- **Public domain is claimed per jurisdiction, never in general.** The US rule is publication-based; the EU rule is *life of the author plus seventy*, and **a translation carries its own separate term**. When a source names a translator who died after 1955, the gate refuses the file unless the EU line spells the arithmetic out. That check is the reason `1958`, `2017` and `2021` now appear in this repo instead of the words "public domain".
+- **Unverified stays visible.** A source may be marked `provenance: unverified`, but only with a `provenance_note` saying exactly what could not be confirmed. Five of the eight files here are marked that way. None was deleted, and none was quietly rephrased into something that would pass.
+
+It also caught an error nobody was looking for: the Hagakure line is credited in the pool to Yamamoto Tsunetomo, but in Book One he is *quoting* a maxim from the wall of Lord Nabeshima Naoshige. Not a fabrication — but not accurate either, and invisible to anyone who only ever meets the sentence standing alone.
+
+The gate runs on every push. `--online` additionally resolves every source URL, on manual dispatch: link rot is worth knowing about and is no reason to block a commit that never touched the link.
+
+**What it does not cover, per Makoto:** the extractor reads blockquote citations only. The four attributed lines in the section above are markdown *list items*, so the gate does not see them — all four are in the pool and resolve anyway, but that is luck, not coverage. The proverb opening **誠 Makoto** in [`CODEX.md`](CODEX.md) is likewise invisible to it, because the quotation is not delimited end to end; it is recorded in [`sources/bushi-ni-nigon-proverb.yml`](sources/bushi-ni-nigon-proverb.yml) regardless.
 
 ## The gate — 義 Gi, made executable
 

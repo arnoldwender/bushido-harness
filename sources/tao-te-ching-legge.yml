@@ -1,0 +1,36 @@
+# The one line in this pool that is genuinely public domain in both
+# jurisdictions, and the only one that needed no caveat.
+#
+# Verified verbatim on 2026-09-10 against the OCR of the printed volume from the
+# Internet Archive (identifier wg939, Sacred Books of the East Vol. 39, 1891),
+# chapter 33.1:
+#
+#   "He who knows other men is discerning; he who knows himself is intelligent.
+#   He who overcomes others is strong; he who overcomes himself is mighty. He
+#   who is satisfied with his lot is rich..."
+#
+# The pool prints the second sentence exactly.
+#
+# WHY THIS ONE CLEARS AND ITS NEIGHBOURS DO NOT: James Legge died in 1897. EU
+# life-plus-70 put his translations in the public domain in 1968. Compare the
+# Sun Tzu entry, where Lionel Giles died in 1958 and the same arithmetic runs to
+# 2029. Same shelf, same century of scholarship, sixty-one years apart in the
+# one number that decides it.
+#
+# The author is the uncertain part, not the text: Laozi's historicity is
+# disputed and the dates below are the traditional ones from Sima Qian.
+work: "Tao Te Ching, in The Texts of Taoism, Sacred Books of the East Vol. 39"
+author: "Laozi (traditional attribution)"
+author_born: -604
+author_died: -531
+year: -400
+posthumous: true
+edition: "James Legge, The Texts of Taoism Part I, Sacred Books of the East Vol. 39, Clarendon Press, Oxford, 1891; chapter 33.1. Laozi's dates are the traditional ones reported by Sima Qian and are not independently documented; the received text is dated to the 4th-3rd century BC, hence the posthumous flag."
+translator: "James Legge"
+translator_died: 1897
+pd_status_us: "Public domain in the United States. Legge's translation was published in 1891, well before the pre-1930 threshold."
+pd_status_eu: "Public domain in the EU. Translator James Legge died 1897; 1897 plus 70 is 1967, so the translation entered the EU public domain in 1968 - clear in Germany, where this repository is published."
+source_url: "https://archive.org/details/wg939"
+provenance: verified
+quotes:
+  - "He who overcomes others is strong; he who overcomes himself is mighty."

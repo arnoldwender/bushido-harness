@@ -1,0 +1,32 @@
+# CODEX.md III opens with a Japanese proverb rather than a named author:
+#
+#   > *Bushi ni nigon wa nai — a warrior has no second word.*
+#
+# The gate's extractor does not reach it: the quotation is not delimited end to
+# end, so it reads as prose. It is recorded here anyway, because the audit's job
+# was the citations in this repository, not only the ones a regular expression
+# happens to catch.
+#
+# Verified 2026-09-10. 武士に二言はない is a documented kotowaza, carried by
+# Japanese dictionaries and proverb references (japandict, kotobank, imidas):
+# a samurai does not go back on his word - literally, the warrior does not speak
+# twice. The repo's English is a faithful and conventional rendering of it.
+#
+# A proverb has no author and no first edition, so author_born and author_died
+# hold the honest answer rather than a plausible number. The gate's date
+# arithmetic skips fields that are not integers, which is the correct behaviour
+# here: there is nothing to check.
+work: "Japanese proverb (kotowaza): 武士に二言はない"
+author: "anonymous - proverbial, no author"
+author_born: "unknown - a proverb has no birth date"
+author_died: "unknown - a proverb has no author to outlive"
+year: "unknown - proverbial, in circulation since the Edo period"
+edition: "No edition. Recorded in Japanese proverb dictionaries and general references; consulted japandict, kotobank and imidas on 2026-09-10. The English in CODEX.md is a conventional rendering, not a quotation from a named translator."
+pd_status_us: "Not a copyrightable work. A short proverbial saying in circulation for centuries, with no fixed authored text and no first publication."
+pd_status_eu: "Not a copyrightable work. No author, so life-plus-70 has nothing to run from. Free to use in Germany, where this repository is published."
+source_url: "https://www.japandict.com/%E6%AD%A6%E5%A3%AB%E3%81%AB%E4%BA%8C%E8%A8%80%E3%81%AF%E3%81%AA%E3%81%84"
+provenance: verified
+provenance_note: "Recorded even though the gate's extractor does not reach it - the quotation in CODEX.md is not delimited end to end, so the regular expression reads it as prose. The proverb itself is verified as genuine and the English rendering is conventional. Kept so a reader auditing this repository finds every attributed line accounted for, not only the ones the extractor sees."
+quotes:
+  - "Bushi ni nigon wa nai"
+  - "a warrior has no second word"
