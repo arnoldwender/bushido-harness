@@ -82,18 +82,26 @@ Every session opens with the fixed banner and one rotating precept.
 
 A **fixed precept** — read the same way each time, under the banner:
 
-> *"Today is victory over yourself of yesterday."* — Miyamoto Musashi
+> 今日は昨日の我に勝ち
+> *(editor's gloss: today, win against the self of yesterday)*
+> — Miyamoto Musashi, Go Rin no Sho (1645)
 
 And a **rotating precept of the day**, drawn from the samurai canon and the classical East Asian texts the samurai studied. The pool is [`precepts.txt`](precepts.txt), one `Precept — Author` per line, documented in [`PRECEPTS.md`](PRECEPTS.md). Four of the eleven, with the discipline each sharpens:
 
-- *"Do nothing which is of no use."* — Miyamoto Musashi → **Rei**: the tidying serves the task; nothing else rides along in the diff.
-- *"Supreme excellence consists in breaking the enemy's resistance without fighting."* — Sun Tzu → **Gi**: minimum force; the blade is drawn last.
-- *"Accept everything just the way it is."* — Miyamoto Musashi → **Makoto**: report the state you found, not the one you wanted.
-- *"The Way is in training."* — Miyamoto Musashi → **Chugi**: the duty is the work finished, and the finishing is the practice.
+- 役に立ぬ事をせざる事 *(editor's gloss: not doing what serves no purpose)* — Miyamoto Musashi → **Rei**: the tidying serves the task; nothing else rides along in the diff.
+- *"To fight and conquer one hundred times is not the perfection of attainment, for the supreme art is to subdue the enemy without fighting."* — Sun Tzu, tr. E. F. Calthrop (1908) → **Gi**: minimum force; the blade is drawn last.
+- 世々の道をそむく事なし *(editor's gloss: never turn your back on the Ways handed down through the ages)* — Miyamoto Musashi → **Makoto**: report the state you found, not the one you wanted.
+- 道の鍛錬する所 *(editor's gloss: the tempering of the Way by training)* — Miyamoto Musashi → **Chugi**: the duty is the work finished, and the finishing is the practice.
 
 An opening line is cheap priming. The precept that greets the session is the posture the session inherits.
 
-**A correction, and it is the honest kind.** This section used to say the pool was drawn from *public-domain* samurai wisdom, and [`PRECEPTS.md`](PRECEPTS.md) used to state flatly that all sources were public domain. The audit of 2026-09-10 found that false. The Japanese and Chinese **originals** are all long out of copyright — but an English **translation is a separate work with its own term**, and several of these are still running: the Musashi wordings are the ones circulated from Victor Harris's 1974 translation (Harris died 2017); the Sun Tzu lines are Lionel Giles's 1910 rendering, public domain in the US but not in the EU until 2029 (Giles died 1958); the Hagakure line is William Scott Wilson's 1979 translation and Wilson is living. Arnold publishes from Germany, so the EU term is the one that binds. The full arithmetic, line by line, is in [`sources/`](sources/) and summarised in [`PRECEPTS.md`](PRECEPTS.md). **The pool is unchanged** — what to do about it is a deliberate decision, not a cleanup, and it has not been taken.
+**Why the pool is in Japanese, and it is the honest kind of correction.** This section used to say the pool was drawn from *public-domain* samurai wisdom, and [`PRECEPTS.md`](PRECEPTS.md) stated flatly that all sources were public domain. The audit of 2026-09-10 found that false for eight of the eleven lines, and this release fixes it rather than only disclosing it.
+
+The trap is worth naming, because it catches anyone building from an old canon: the Japanese and Chinese **originals** left copyright centuries ago, but an English **translation is a separate work with its own term**, running from the translator's death. The Musashi wordings were the ones circulated from Victor Harris's 1974 translation (Harris died 2017 — EU term to 2088); the Sun Tzu lines were Lionel Giles's 1910 rendering, public domain in the US but **not in the EU until 2029** (Giles died 1958); the Hagakure line was William Scott Wilson's 1979 translation, and Wilson is living. Arnold publishes from Germany, so the binding rule is life + 70, not the US publication rule. *That Project Gutenberg hosts a text is evidence about US law and about nothing else.*
+
+Two of the eleven were worse than a licence problem. The *"journey of a thousand miles"* line matched **no published translation at all** — 千里之行，始於足下 says the journey begins *beneath one's feet*, with no mile and no single step in it; Legge's actual wording now stands in its place. And the Hagakure maxim was credited to the wrong man: in Book One, Yamamoto Tsunetomo is *quoting* a maxim from the wall of **Nabeshima Naoshige**, who now gets the line.
+
+Where no free English exists, the entry prints the **original** and marks the English as an `editor's gloss` — Arnold's own words, not a quotation put in the mouth of a translator who never wrote it. The full arithmetic, line by line and per jurisdiction, is in [`sources/`](sources/) and summarised in [`PRECEPTS.md`](PRECEPTS.md); [`gate/citations.py`](gate/citations.py) fails the build if any line loses its source.
 
 ## The second gate — 誠 Makoto, made executable
 

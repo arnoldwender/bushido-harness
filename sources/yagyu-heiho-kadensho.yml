@@ -1,41 +1,44 @@
-# The work is certain, the author is certain, and the English is modern - which
-# is enough to settle the copyright question even though the exact translator
-# could not be pinned down.
+# RESOLVED 2026-09-10. The audit could not pin down WHICH modern translator
+# produced the English this pool printed, and it did not matter: every candidate
+# was in copyright, so the line was not public domain on any reading.
 #
-# Verified 2026-09-10. Yagyu Munenori, 1571-1646, wrote the Heiho kadensho (A
-# Hereditary Book on the Art of War) in 1632. That much is documented.
+#   Thomas Cleary          died 2021  -> EU protection to 2092
+#   Hiroaki Sato           died 2022  -> EU protection to 2093
+#   William Scott Wilson   born 1944, living
 #
-# WHICH TRANSLATOR IS THE OPEN QUESTION. The wording used here appears on
-# terebess.hu, a page that sets three English versions of the Heiho kadensho
-# side by side - Thomas Cleary's, William Scott Wilson's The Life-Giving Sword
-# (Kodansha, 2003), and Hiroaki Sato's The Sword and the Mind - and attributes
-# this particular sentence to CLEARY. That is a single source, and it was not
-# confirmed against Cleary's printed book, so this file says attributed rather
-# than asserting it.
+# No public-domain English translation of the Heiho kadensho exists to swap in -
+# the English versions all date from the 1980s onward - so the pool now prints
+# the 1632 JAPANESE, which is public domain beyond argument, with an editorial
+# gloss marked as a gloss on the line itself.
 #
-# THE COPYRIGHT ANSWER DOES NOT DEPEND ON WHICH ONE IT IS, and that is the point
-# worth keeping. All three candidates are modern and all three are in copyright:
+# The Japanese was verified on 2026-09-10 against two independent reproductions
+# of the 病気之事 section of the 殺人刀 scroll, which agree on wording and differ
+# only in orthography. The passage runs:
 #
-#   Thomas Cleary        died 2021  -> EU protection to 2092
-#   William Scott Wilson born 1944, living
-#   Hiroaki Sato         died 2022
+#   かたんと一筋におもふも病也。兵法つかはむと一筋におもふも病也。習のたけを
+#   出さんと一筋におもふも病、かからんと一筋におもふも病也。またんとばかり
+#   おもふも病也。病をさらんと一筋におもひかたまりたるも病也。何事も心の
+#   一筋にとどまりたるを病とするなり。
 #
-# There is no reading of the evidence on which this line is public domain, and
-# PRECEPTS.md says all sources are. The translator_died field carries Cleary's
-# year because that is the attributed candidate; naming any of the three
-# produces the same verdict.
+# The pool prints the last sentence. One reproduction gives 一すぢ / 病とする也
+# where the other gives 一筋 / 病とするなり; the pool prints the second form.
+#
+# Note what the passage is doing, because the gloss has to carry it: every
+# clause names a different fixation as sickness, INCLUDING the fixation on
+# getting rid of sickness, and the last sentence generalises the lot. It is
+# about the mind lodging anywhere at all, not about any particular obsession.
 work: "Heiho kadensho (A Hereditary Book on the Art of War)"
 author: "Yagyu Munenori"
 author_born: 1571
 author_died: 1646
 year: 1632
-edition: "Written 1632. English wording attributed to Thomas Cleary's translation by terebess.hu, which reproduces three English versions side by side; not confirmed against Cleary's printed edition. The other two candidates on that page are William Scott Wilson, The Life-Giving Sword, Kodansha International, 2003, and Hiroaki Sato, The Sword and the Mind."
-translator: "Thomas Cleary (attributed, not confirmed - see provenance_note)"
-translator_died: 2021
-pd_status_us: "The 1632 Japanese original is public domain. THE ENGLISH IS NOT: every candidate translation is modern - Cleary, Wilson 2003, Sato - and all are far later than the pre-1930 US threshold. In copyright in the United States whichever one it is."
-pd_status_eu: "The Japanese original is public domain - Munenori died 1646. THE ENGLISH IS NOT PUBLIC DOMAIN IN THE EU: the attributed translator Thomas Cleary died 2021, so 2021 plus 70 protects that translation until 2092. The alternative candidates give the same answer - Hiroaki Sato died 2022, and William Scott Wilson, born 1944, is living. No candidate is public domain."
-source_url: "https://terebess.hu/zen/mesterek/Munenori.html"
-provenance: unverified
-provenance_note: "Author, work and date are verified: Yagyu Munenori, 1571-1646, Heiho kadensho, 1632. The TRANSLATOR is attributed to Thomas Cleary on the strength of one page, terebess.hu, and was not confirmed against a printed edition. That uncertainty does not change the outcome that matters: all three candidate translations - Cleary, Wilson 2003, Sato - are modern and in copyright in both jurisdictions, so this line is not public domain on any reading, contradicting PRECEPTS.md. Needs a decision from the author: confirm and clear the translation, or replace the line."
+edition: "Written 1632. The line closes the 病気之事 (On sickness) section of the 殺人刀 scroll, where a run of clauses each names a fixation as sickness - wanting to win, wanting to use technique, wanting to show everything one has learnt, wanting to attack, wanting to wait, and finally wanting to be rid of sickness. Orthographic variant 一すぢ / 病とする也 appears in some reproductions where the pool prints 一筋 / 病とするなり."
+gloss: "The parenthesised English on the pool line is an editorial gloss written for this repository. It is NOT a translation quoted from any published edition, and it is marked as a gloss on the line itself."
+pd_status_us: "Public domain in the United States. The Japanese text dates from 1632, centuries before the pre-1930 threshold. NO TRANSLATION IS PRINTED, so no translator's term attaches."
+pd_status_eu: "Public domain in the EU. Yagyu Munenori died in 1646, so life plus 70 ran out in 1716 and the Japanese is free in Germany, where this repository is published. No translator's term applies because no translation is printed: the parenthesised English is the editor's own gloss, an original line owned by this repository and released under its MIT licence. This is what replaced an English wording attributed to Thomas Cleary - and every candidate translator was in copyright, Cleary having died in 2021, Hiroaki Sato in 2022, and William Scott Wilson being alive."
+source_url: "https://note.com/yshiba110/n/necebff17117f"
+source_url_secondary: "http://mat-sekiunn.cocolog-nifty.com/blog/2021/09/post-760efc.html"
+provenance: verified
+provenance_note: "Author, work and date were already verified: Yagyu Munenori, 1571-1646, Heiho kadensho, 1632. What changed on 2026-09-10 is that the English is gone and the Japanese behind it was located and cross-checked against two independent reproductions of the 病気之事 section. The old question - which of Cleary, Sato or Wilson produced the wording the pool printed - is now moot rather than answered, and saying so is more honest than implying it was settled. What is quoted is the Japanese only; the English in parentheses is the editor's gloss and says so on the printed line."
 quotes:
-  - "To fix the mind obsessively on anything is considered sickness."
+  - "何事も心の一筋にとどまりたるを病とするなり (editor's gloss: whatever the thing, a mind that lodges on it is what is called sickness)"

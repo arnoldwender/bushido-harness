@@ -4,6 +4,12 @@
 #   - A fixed opening precept (the creed) is printed first.
 #   - Below it, a rotating "precept of the day" from precepts.txt (samurai canon).
 #     Edit precepts.txt to change or extend the rotating pool. See PRECEPTS.md.
+#
+# The opening precept is printed in Musashi's Japanese, with a short English
+# gloss marked as a gloss. That is deliberate and it is a licence fact, not a
+# style choice: the Japanese of 1645 is public domain everywhere, while every
+# English translation of the Go Rin no Sho is modern and still in copyright in
+# the EU. sources/musashi-go-rin-no-sho.yml carries the arithmetic.
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 PRECEPTS="$DIR/precepts.txt"
 
@@ -11,8 +17,9 @@ cat <<'EOF'
 
   道   THE BUSHIDO HARNESS   道
 
-  "Today is victory over yourself of yesterday."
-                          — Miyamoto Musashi
+  今日は昨日の我に勝ち
+  (editor's gloss: today, win against the self of yesterday)
+                          — Miyamoto Musashi, Go Rin no Sho (1645)
 EOF
 
 # --- Rotating precept of the day, from precepts.txt ---

@@ -1,0 +1,49 @@
+# RESOLVED 2026-09-10, and this line had TWO defects, not one.
+#
+# DEFECT ONE - COPYRIGHT. The English printed was William Scott Wilson's, from
+# his Hagakure (Kodansha International, 1979). Wilson was born in 1944 and is
+# alive, so there is no arithmetic to do: the translation is in copyright in the
+# United States and in the EU and will be for his lifetime plus seventy. It was
+# the least ambiguous non-public-domain line in the pool. No public-domain
+# English Hagakure exists to swap in - Wilson's 1979 volume and Takao Mukoh's
+# 1980 one are the early ones, and both are modern - so the pool now prints the
+# JAPANESE, which is public domain beyond argument, with an editorial gloss
+# marked as a gloss on the line itself.
+#
+# DEFECT TWO - ATTRIBUTION, and this is the one no reader could have caught. The
+# pool credited the line to Yamamoto Tsunetomo. In the Hagakure it is not his.
+# Book One reads:
+#
+#   直茂公の御壁書に、「大事の思案は軽くすべし。」とあり。一鼎の註には、
+#   「小事の思案は重くすべし。」と致され候。
+#
+# Tsunetomo is REPORTING a maxim from the wall writings (壁書) of Lord Nabeshima
+# Naoshige, and then recording Ishida Ittei's reply to it. Crediting it flatly
+# to Tsunetomo is the same species of error as citing a line of dialogue to the
+# novelist. The pool now names Naoshige and says where the maxim was recorded.
+#
+# Naoshige lived 12 April 1538 to 24 July 1618. The Hagakure was dictated to
+# Tashiro Tsuramoto around 1709-1716, roughly a century after his death, which
+# is why this file carries `posthumous: true` - the flag exists precisely so a
+# gap like that is declared rather than looking like a wrong date.
+#
+# Japanese verified 2026-09-10 against three independent reproductions of the
+# passage, which agree on wording and differ only in kyujitai: ask-shidou.com's
+# 葉隠 original-plus-translation list and shisokuyubi.com both print 輕 where the
+# third, note.com/josanjin, prints 軽. The pool prints the modern 軽.
+work: "Hagakure (The Book of the Samurai), Book One - the wall maxims of Nabeshima Naoshige as recorded there"
+author: "Nabeshima Naoshige (the maxim is his; the record of it is Yamamoto Tsunetomo's)"
+author_born: 1538
+author_died: 1618
+year: 1716
+posthumous: true
+edition: "The maxim comes from Naoshige's 御壁書, his wall writings. It is preserved in the Hagakure, dictated by Yamamoto Tsunetomo (1659-1719) to Tashiro Tsuramoto c. 1709-1716, in Book One, where Tsunetomo quotes it and then records Ishida Ittei's reply, 小事の思案は重くすべし - small matters should be weighed heavily. Kyujitai variant 輕 appears in some reproductions where the pool prints 軽."
+gloss: "The parenthesised English on the pool line is an editorial gloss written for this repository. It is NOT a translation quoted from any published edition, and it is marked as a gloss on the line itself."
+pd_status_us: "Public domain in the United States. The Japanese maxim is Naoshige's, who died in 1618, recorded in a text dictated by 1716 - centuries before the pre-1930 threshold. NO TRANSLATION IS PRINTED, so no translator's term attaches."
+pd_status_eu: "Public domain in the EU. Nabeshima Naoshige died in 1618 and Yamamoto Tsunetomo, who recorded the maxim, died in 1719; life plus 70 ran out in 1688 and 1789 respectively, so the Japanese is free in Germany, where this repository is published. No translator's term applies because no translation is printed: the parenthesised English is the editor's own gloss, an original line owned by this repository and released under its MIT licence. This is what replaced William Scott Wilson's 1979 wording, which is not public domain anywhere - Wilson, born 1944, is living, so the term has not begun to run."
+source_url: "https://ask-shidou.com/sho/hagakure"
+source_url_secondary: "https://shisokuyubi.com/bousai-kakugen/index-485"
+provenance: verified
+provenance_note: "Verified on 2026-09-10 against three independent reproductions of the Book One passage, agreeing on wording and differing only in kyujitai. Both defects the audit found are now fixed in the pool itself: the English is gone, and the maxim is credited to Nabeshima Naoshige with the Hagakure named as the place it was written down rather than as its author. What is quoted is the Japanese only; the English in parentheses is the editor's gloss and says so on the printed line."
+quotes:
+  - "大事の思案は軽くすべし (editor's gloss: weigh a great matter lightly)"
