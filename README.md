@@ -122,9 +122,11 @@ Exit `0` clean · `1` findings · `2` the gate itself failed. The third is the l
 
 Documentation is skipped whole — `.md`, `.rst`, `.txt` — along with comment lines, docstrings and fenced blocks inside code. A README that shows a destructive command is teaching, not running. Real exceptions go in [`.conduct/irreversible-allow.txt`](.conduct/irreversible-allow.txt), one path or regex per line, with the reason next to it.
 
+All of that filtering applies to what the gate **discovers** in a diff, and never to what you **hand** it. A file named with `--script` is read even when it sits in a scratch directory — the caller already decided it matters — and when nothing in it was judged the gate says so out loud instead of printing a bare all-clear.
+
 ### Does the check have teeth?
 
-[`tests/test_irreversible.py`](tests/test_irreversible.py) gives every pattern the same pair: the destructive command on a path that cannot be rebuilt must go **red**, and the identical command on a rebuildable path must stay **green**. [`tests/mutation_check.py`](tests/mutation_check.py) then removes each mechanism in turn — the five checks, the four discriminators, the two guards — and requires the suite to go red without it. A test that still passes with the mechanism deleted was never testing it. Both run in CI, in [`.github/workflows/gate.yml`](.github/workflows/gate.yml).
+[`tests/test_irreversible.py`](tests/test_irreversible.py) gives every pattern the same pair: the destructive command on a path that cannot be rebuilt must go **red**, and the identical command on a rebuildable path must stay **green**. [`tests/mutation_check.py`](tests/mutation_check.py) then removes each mechanism in turn — every check, every scope rule, every guard — and requires the suite to go red without it. A test that still passes with the mechanism deleted was never testing it. Both run in CI, in [`.github/workflows/gate.yml`](.github/workflows/gate.yml).
 
 ### What it does not automate — plainly, because Makoto is not traded
 
