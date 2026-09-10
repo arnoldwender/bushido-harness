@@ -1,0 +1,15 @@
+# Allowlist for gate/irreversible.py — one path or one regex per line.
+#
+# A line matches when it equals the finding's path, is a parent directory of it,
+# or is a regex that matches either the path or the offending source line.
+# Everything after a `#` is a comment. An entry that is neither a usable path
+# nor a valid regex is reported as a finding, not silently ignored: an escape
+# hatch that fails quietly is worse than none.
+#
+# Keep this file short and keep the reason next to the entry. A long allowlist
+# is a gate that was talked out of its job one line at a time.
+
+# The gate's own test suite plants destructive commands as string literals, on
+# purpose, so the gate can be shown to catch them. Judging them would make the
+# repo unable to test its own falsifier.
+tests/test_irreversible.py
