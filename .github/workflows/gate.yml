@@ -53,7 +53,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install
-        run: python -m pip install --upgrade pip pytest pyyaml
+        run: python -m pip install --upgrade pip pytest
 
       - name: Make the base ref reachable
         run: git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
@@ -70,6 +70,9 @@ jobs:
 
       - name: Mutation check (do the tests defend the gate?)
         run: python3 tests/mutation_check.py
+
+      - name: Mutation check (do the tests defend the citation gate?)
+        run: python3 tests/mutation_check_citations.py
 
       - name: Tests
         run: python3 -m pytest tests/ -q
