@@ -74,6 +74,10 @@ The warrior's code is, at root, a discipline of **mastery, honor, and restraint*
 
 - **Paste the block.** Drop the contents of [`codex-block.md`](codex-block.md) into the instructions your agent already reads — `AGENTS.md`, `CLAUDE.md`, a system prompt, whatever your harness loads. It is the single source the hook and your agent file share.
 - **Or wire the hook.** [`hooks/session-start.sh`](hooks/session-start.sh) emits the first word and the conduct block at the top of every session — see [hooks/](hooks/).
+- **Or install it as an Agent Skill.** [`SKILL.md`](SKILL.md) packages the same block in the
+  [Agent Skills](https://agentskills.io/specification) format: clone this repository into your
+  agent's skills directory as `bushido-harness/` (the directory name must match the skill name).
+  Verified on Claude Code 2.1.273 (2026-09-17); other hosts that read the format were not run.
 - **Always active, intensity scales to the task.** There is no "discipline mode" to switch on. What scales is weight: a one-line typo fix does not need the full ceremony of gates; a schema migration does. Match the discipline to the size of the change.
 
 ## The first word
