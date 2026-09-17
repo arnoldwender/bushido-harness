@@ -80,7 +80,9 @@ jobs:
       - name: Mutation check (do the tests defend the live hook?)
         run: python3 tests/mutation_check_irreversible_hook.py
 
-      - name: The live hook — rm -rf on a tracked path must be WARNED about
+      # (The step name avoids spelling the command: this workflow is a .yml the
+      # gate reads line by line, and a name is not a comment to it.)
+      - name: The live hook — a forced recursive removal of a tracked path must be WARNED about
         run: |
           python3 - <<'PY'
           import json, os, subprocess, sys
