@@ -158,6 +158,26 @@ def test_every_spelling_of_the_same_command_fires(repo: Path, command: str) -> N
     assert gate(repo).returncode == 1, command
 
 
+def test_a_redirection_is_not_a_target(repo: Path) -> None:
+    """`rm -rf dist 2>/dev/null` names one target. The gate once reported `2>/dev/null`
+    as a path it could not prove disposable — measured, 16 times over 27,000 commands."""
+    add_line(repo, "deploy.sh", "rm -rf dist 2>/dev/null")
+    r = gate(repo)
+    assert r.returncode == 0, f"fired on a redirection:\n{r.stdout}"
+
+
+def test_a_redirection_does_not_hide_the_real_target(repo: Path) -> None:
+    add_line(repo, "deploy.sh", "rm -rf src/lib 2>/dev/null")
+    r = gate(repo)
+    assert r.returncode == 1
+    assert "`src/lib`" in r.stdout and "2>/dev/null" not in r.stdout
+
+
+def test_a_static_export_directory_is_rebuildable(repo: Path) -> None:
+    add_line(repo, "deploy.sh", "rm -rf apps/frontend/out && npm run build")
+    assert gate(repo).returncode == 0
+
+
 def test_rm_without_force_is_out_of_scope(repo: Path) -> None:
     """Documented limit, asserted so it stays a decision and not a surprise."""
     add_line(repo, "deploy.sh", "rm -r src/lib")

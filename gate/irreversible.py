@@ -100,10 +100,19 @@ EPHEMERAL_SEGMENTS = frozenset({
     "tmp", "temp", ".tmp", ".temp", "scratch", ".scratch",
     ".cache", ".caches", ".parcel-cache", ".turbo", ".gradle", ".terraform",
     ".venv", "venv", ".virtualenv", "__pycache__", ".pytest_cache",
-    ".mypy_cache", ".ruff_cache", ".tox", ".eggs",
+    ".mypy_cache", ".ruff_cache", ".tox", ".eggs", ".phpunit.cache",
     ".next", ".nuxt", ".svelte-kit", ".astro", ".output", ".vercel", ".netlify",
     ".serverless", ".sass-cache", "DerivedData", "logs",
+    # `out`: the static export of Next.js and the build tree of IntelliJ and javac.
+    # Measured over 27,000 real shell commands before it was added: 14 of the gate's
+    # findings were `rm -rf apps/frontend/out && … build`, every one a rebuild.
+    "out",
 })
+
+# A shell redirection is not an operand. `rm -rf dist 2>/dev/null` names one target,
+# not two — and the gate once reported `2>/dev/null` as a path it could not prove
+# disposable (16 of 182 findings over the same 27,000 commands).
+REDIRECTION = re.compile(r"^(\d*>>?|&>|<<?)")
 EPHEMERAL_ABS_PREFIXES = ("/tmp/", "/var/tmp/", "/private/tmp/",
                           "/var/folders/", "/private/var/folders/", "/dev/shm/")
 EPHEMERAL_EXACT = frozenset({"/tmp", "/var/tmp", "/private/tmp", "/dev/shm"})
@@ -476,6 +485,8 @@ def flags_and_operands(tokens: tuple[str, ...]) -> tuple[set[str], list[str]]:
     for tok in tokens:
         if tok == "--":
             end_of_flags = True
+            continue
+        if REDIRECTION.match(tok):
             continue
         if not end_of_flags and tok.startswith("--"):
             flags.add(tok.split("=", 1)[0])

@@ -60,6 +60,8 @@ MUTANTS = [
      'if sub == "push":'),
     ("ALLOWLIST", "findings = apply_allowlist(findings, allow)",
      "findings = findings"),
+    ("GUARD a shell redirection is not an operand",
+     "        if REDIRECTION.match(tok):\n            continue", "        pass"),
 ]
 
 
