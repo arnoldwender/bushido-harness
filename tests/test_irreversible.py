@@ -173,6 +173,18 @@ def test_a_redirection_does_not_hide_the_real_target(repo: Path) -> None:
     assert "`src/lib`" in r.stdout and "2>/dev/null" not in r.stdout
 
 
+def test_an_operand_the_filesystem_cannot_hold_does_not_stop_the_judgement(repo: Path) -> None:
+    """Found in CI, on Python 3.12: `Path.exists()` raised ENAMETOOLONG on a 500-character
+    operand, the gate exited 2 mid-judgement, and `rm -rf src/lib` right beside it went
+    unreported. A name the filesystem rejects is not a path that exists; it is not a
+    reason to stop judging the others. The mutant narrows the guard to FileNotFoundError,
+    which lets ENAMETOOLONG through on every interpreter (`os.stat` raises it everywhere)."""
+    add_line(repo, "deploy.sh", "rm -rf src/lib " + "x" * 500)
+    r = gate(repo)
+    assert r.returncode == 1, r.stdout + r.stderr
+    assert "rm-rf" in r.stdout and "`src/lib`" in r.stdout
+
+
 def test_a_static_export_directory_is_rebuildable(repo: Path) -> None:
     add_line(repo, "deploy.sh", "rm -rf apps/frontend/out && npm run build")
     assert gate(repo).returncode == 0

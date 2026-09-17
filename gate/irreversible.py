@@ -207,10 +207,23 @@ def is_tracked(path: str) -> bool:
 
 # --- scanning ----------------------------------------------------------------
 
+def path_exists(p: Path) -> bool:
+    """`Path.exists()` on Python 3.12 and older raises OSError for a name the filesystem
+    cannot hold (ENAMETOOLONG, errno 36); 3.13 returns False. A gate that raises inside a
+    judgement exits 2 and reports nothing — measured in CI on `rm -rf src/lib <500 chars>`:
+    the tracked path went unreported because the junk operand beside it broke the probe.
+    A name the filesystem rejects is not a path that exists; it is not a reason to stop."""
+    try:
+        os.stat(p)
+        return True
+    except OSError:
+        return False
+
+
 def rel_to_root(path: Path) -> str:
     try:
         return str(path.resolve().relative_to(ROOT.resolve()))
-    except ValueError:
+    except (ValueError, OSError):
         return str(path)
 
 
@@ -300,11 +313,11 @@ def doc_line_numbers(path: str) -> frozenset[int]:
     the per-line comment test in `is_doc_line` still applies.
     """
     p = ROOT / path
-    if not p.is_file():
-        p = Path(path)
-        if not p.is_file():
-            return frozenset()
     try:
+        if not p.is_file():
+            p = Path(path)
+            if not p.is_file():
+                return frozenset()
         lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
     except OSError:
         return frozenset()
@@ -536,11 +549,11 @@ def classify_target(raw: str) -> tuple[str, str]:
     if norm.startswith("/"):
         try:
             candidate = str(Path(norm).resolve().relative_to(ROOT.resolve()))
-        except ValueError:
+        except (ValueError, OSError):
             return "outside", "outside the repository, and not provably disposable"
     if is_tracked(candidate):
         return "tracked", "tracked in git"
-    if (ROOT / candidate).exists():
+    if path_exists(ROOT / candidate):
         return "inside", "inside the repository"
     return "outside", "not a path this gate can prove is disposable"
 

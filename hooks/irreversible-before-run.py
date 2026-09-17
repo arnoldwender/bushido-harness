@@ -294,7 +294,11 @@ def main() -> int:
     session = str(payload.get("session_id") or "")[:8]
     common = {"session": session, "command": command[:120], "mode": MODE}
 
-    findings, judged = judge(command, root)
+    try:
+        findings, judged = judge(command, root)
+    except Exception as exc:  # noqa: BLE001 — fail open, but the receipt still names the command
+        receipt(verdict="error", error=f"{type(exc).__name__}: {exc}"[:200], **common)
+        return 0
     ms = int((time.time() - t0) * 1000)
     if not findings:
         receipt(verdict="ok", lines=judged, ms=ms, **common)

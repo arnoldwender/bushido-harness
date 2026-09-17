@@ -62,6 +62,11 @@ MUTANTS = [
      "findings = findings"),
     ("GUARD a shell redirection is not an operand",
      "        if REDIRECTION.match(tok):\n            continue", "        pass"),
+    # Narrowed to FileNotFoundError, ENAMETOOLONG propagates on every interpreter
+    # (os.stat raises it everywhere; only Path.exists() on 3.13+ swallows it), so
+    # this mutant dies on 3.14 locally and on 3.12 in CI alike.
+    ("GUARD a name the filesystem cannot hold is not a reason to stop judging",
+     "    except OSError:\n        return False", "    except FileNotFoundError:\n        return False"),
 ]
 
 

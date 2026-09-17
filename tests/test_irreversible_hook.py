@@ -292,3 +292,21 @@ def test_receipts_can_be_switched_off(repo: Path) -> None:
 def test_the_receipt_keeps_the_command_short_and_never_its_output(repo: Path) -> None:
     _, _, _, rec = hook(repo, "rm -rf src/lib " + "x" * 500)
     assert len(rec["command"]) == 120 and "ms" in rec and "session" in rec
+
+
+def test_an_operand_the_filesystem_cannot_hold_does_not_hide_the_tracked_one(repo: Path) -> None:
+    """Found in CI, not locally: on Python 3.12 `Path.exists()` raises ENAMETOOLONG for a
+    500-character name, the gate broke mid-judgement, and the hook recorded `error` while
+    saying nothing about `rm -rf src/lib` sitting right beside the junk operand. A name the
+    filesystem rejects is not a reason to stop judging the others."""
+    _, out, _, rec = hook(repo, "rm -rf src/lib " + "x" * 500)
+    assert "[rm-rf]" in warning(out) and "tracked in git" in warning(out), rec
+    assert rec["verdict"] == "finding"
+
+
+def test_an_error_receipt_still_names_the_command(repo: Path) -> None:
+    """Fail-open is not the same as fail-silent: the receipt of a hook that broke must say
+    on which command it broke, or the failure cannot be counted against anything."""
+    _, out, _, rec = hook(repo, "rm -rf src/lib", env={"IRREVERSIBLE_GATE": str(repo / "none.py")})
+    assert out is None and rec["verdict"] == "error"
+    assert rec["command"] == "rm -rf src/lib" and rec["session"] == "test-ses"
