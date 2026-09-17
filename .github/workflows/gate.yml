@@ -74,6 +74,30 @@ jobs:
       - name: Mutation check (do the tests defend the citation gate?)
         run: python3 tests/mutation_check_citations.py
 
+      # The live hook is the gate at the moment a shell command is about to run.
+      # CI cannot run a session, so it proves the hook still has teeth: its own
+      # mutants die, and a planted `rm -rf` on a tracked path is warned about.
+      - name: Mutation check (do the tests defend the live hook?)
+        run: python3 tests/mutation_check_irreversible_hook.py
+
+      # (The step name avoids spelling the command: this workflow is a .yml the
+      # gate reads line by line, and a name is not a comment to it.)
+      - name: The live hook — a forced recursive removal of a tracked path must be WARNED about
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, sys
+          payload = {"session_id": "ci", "cwd": os.getcwd(), "hook_event_name": "PreToolUse",
+                     "tool_name": "Bash", "tool_input": {"command": "rm -rf gate/irreversible.py"}}
+          r = subprocess.run([sys.executable, "hooks/irreversible-before-run.py"], input=json.dumps(payload),
+                             capture_output=True, text=True, env={**os.environ, "IRREVERSIBLE_RECEIPTS": "off"})
+          out = json.loads(r.stdout) if r.stdout.strip() else {}
+          text = (out.get("hookSpecificOutput") or {}).get("additionalContext", "")
+          if r.returncode != 0 or "[rm-rf]" not in text or "tracked in git" not in text:
+              print(f"the hook returned {r.returncode} and said {text!r}; expected an rm-rf warning", file=sys.stderr)
+              sys.exit(1)
+          print("the hook warned before the blade was drawn, as it must:", text[:90])
+          PY
+
       - name: Tests
         run: python3 -m pytest tests/ -q
 

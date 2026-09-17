@@ -74,6 +74,7 @@ The warrior's code is, at root, a discipline of **mastery, honor, and restraint*
 
 - **Paste the block.** Drop the contents of [`codex-block.md`](codex-block.md) into the instructions your agent already reads — `AGENTS.md`, `CLAUDE.md`, a system prompt, whatever your harness loads. It is the single source the hook and your agent file share.
 - **Or wire the hook.** [`hooks/session-start.sh`](hooks/session-start.sh) emits the first word and the conduct block at the top of every session — see [hooks/](hooks/).
+- **And the live one.** [`hooks/irreversible-before-run.py`](hooks/irreversible-before-run.py) runs the gate on every shell command before it executes and warns the agent when the command has no undo — see [hooks/](hooks/) and *Live, before the blade is drawn* below.
 - **Or install it as an Agent Skill.** [`SKILL.md`](SKILL.md) packages the same block in the
   [Agent Skills](https://agentskills.io/specification) format: clone this repository into your
   agent's skills directory as `bushido-harness/` (the directory name must match the skill name).
@@ -141,7 +142,7 @@ Exit `0` clean · `1` findings · `2` the gate itself failed. The third is the l
 
 | Check | Fires | Stays quiet |
 | --- | --- | --- |
-| `rm-rf` | `rm -rf` / `-fr` / `-r -f` / `--recursive --force` aimed at a tracked path, a path inside the repo, or one it cannot prove disposable | `node_modules`, `dist`, `build`, `target`, `coverage`, `.cache`, `.venv`, `__pycache__`, anything under `/tmp`, `*.log`, a fresh `$(mktemp -d)` |
+| `rm-rf` | `rm -rf` / `-fr` / `-r -f` / `--recursive --force` aimed at a tracked path, a path inside the repo, or one it cannot prove disposable | `node_modules`, `dist`, `build`, `out`, `target`, `coverage`, `.cache`, `.venv`, `__pycache__`, anything under `/tmp`, `*.log`, a fresh `$(mktemp -d)` — and a shell redirection (`2>/dev/null`) is never read as a target |
 | `git-destructive` | `git reset --hard`; `git clean -fd…` with no path or a tracked one; `git push --force` / `-f`; `git filter-repo`; `git filter-branch` | `--force-with-lease`, `git reset --soft`, `git clean` scoped to a rebuildable path, `filter-repo --dry-run` |
 | `sql-destructive` | `DROP TABLE` / `DATABASE` / `SCHEMA`, `TRUNCATE`, `DELETE FROM` with no `WHERE` | `DELETE FROM … WHERE …` — including a `WHERE` on the next line — and the shell's own `truncate -s` |
 | `cloud-destructive` | `aws s3 rm --recursive`, `terraform destroy` and `apply -destroy`, `kubectl delete` without `--dry-run`, `docker system prune -a` | `terraform plan -destroy`, `kubectl delete --dry-run=client`, `docker system prune` without `-a`, a single-key `aws s3 rm` |
@@ -159,6 +160,21 @@ All of that filtering applies to what the gate **discovers** in a diff, and neve
 
 [`tests/test_irreversible.py`](tests/test_irreversible.py) gives every pattern the same pair: the destructive command on a path that cannot be rebuilt must go **red**, and the identical command on a rebuildable path must stay **green**. [`tests/mutation_check.py`](tests/mutation_check.py) then removes each mechanism in turn — every check, every scope rule, every guard — and requires the suite to go red without it. A test that still passes with the mechanism deleted was never testing it. Both run in CI, in [`.github/workflows/gate.yml`](.github/workflows/gate.yml).
 
+### Live, before the blade is drawn — `hooks/irreversible-before-run.py`
+
+The gate reads a diff, so it catches the destructive command an agent *writes into a file*. It never sees the one an agent *types*: a `rm -rf` sent straight to the shell leaves no diff, and by the time anyone diffs anything the directory is gone. So the same gate also runs as a Claude Code `PreToolUse` hook on `Bash`, against that one command, with the session's working directory as its root — same five checks, same path classification, same allowlist. If the command reaches for something it cannot take back, the agent reads the finding **in the tool result** and the command runs anyway:
+
+> irreversible: this command reaches for something it cannot take back. [rm-rf] `rm -rf` on `src/lib` - tracked in git. Reversible before irreversible: move it aside, or scope the command to something rebuildable. … Warning mode: this command is NOT blocked.
+
+**Measured before it was published**, over 27,253 real shell commands from 80 sessions of one developer's agent (Claude Code 2.1.251 – 2.1.274, 2026-09-17):
+
+- The gate as it stood would have warned on 278 commands, **1.0 %** — and 233 of those were `unexpanded-target`, a variable it could not resolve.
+- Reading them, the variable was usually assigned three lines up in the same command (`T=$(mktemp -d)`), or the command opened with a `cd` into a scratch directory. A diff cannot know either; a single command says both. The hook resolves an assignment made earlier in the same command and a `cd` that opens it — only those; a loop variable stays unexpanded and keeps its warning.
+- Two defects of the **gate itself** surfaced from the same run and are fixed in it, each with a test and a mutant: a shell redirection (`2>/dev/null`) was read as a target, 16 times; and `out`, the static export of Next.js, was not on the rebuildable list, 14 times.
+- After that: **94 commands, 0.34 %**, in 23 of the 80 sessions. What remains, read by hand: deletions of a lockfile before a reinstall (tracked, so the gate is right by its own rule), caches the gate does not list (`.playwright-mcp`, `*.tsbuildinfo` — the allowlist's job), 45 `sql-destructive` hits from one session that wrote the words `DELETE FROM` into a Python list inside a heredoc (a stated limit: a string literal in code is judged as code), and a handful of real ones — a knowledge directory, a `.git`, a worktree — that the hook exists for.
+
+Warning, not blocking, on purpose: 0.34 % is the number on one developer's sessions, not on yours, and a guard that wrongly stops one command is switched off before it stops a second. Every run leaves a receipt (verdict, checks, the first 120 characters of the command), so your own rate is a count. `IRREVERSIBLE_HOOK_MODE=block` exists for whoever has measured theirs. Wiring, receipts and limits in [hooks/](hooks/); 40 tests and 8 mutants in [`tests/`](tests/). One of the 40 was written in CI's interpreter and not the author's: on Python 3.12 a 500-character operand made `Path.exists()` raise mid-judgement, the gate exited 2, and the hook fell open on the `rm -rf src/lib` sitting right beside it. The gate now treats a name the filesystem cannot hold as a path that does not exist, with a mutant that dies on every interpreter.
+
 ### What it does not automate — plainly, because Makoto is not traded
 
 This gate covers **one rule of sixteen**: Gi 義 · 2. Nothing else in the codex is enforced by it.
@@ -174,7 +190,7 @@ It also has limits inside its own rule, stated so they stay decisions rather tha
 
 Early, but real.
 
-This is a codex plus reference wiring — not a framework. There is nothing to install and nothing to lock into. What ships with it: the **session-start hook**, a couple of **starter agents** already carrying the codex, one **worked before/after example** — the same task run without the harness and with it, where the visible difference is *where it declares "done"* — and one **executable gate**, [`gate/irreversible.py`](gate/irreversible.py), which is Gi 義 · 2 turned into a check that runs.
+This is a codex plus reference wiring — not a framework. There is nothing to install and nothing to lock into. What ships with it: the **session-start hook**, a couple of **starter agents** already carrying the codex, one **worked before/after example** — the same task run without the harness and with it, where the visible difference is *where it declares "done"* — and one **executable gate**, [`gate/irreversible.py`](gate/irreversible.py), which is Gi 義 · 2 turned into a check that runs: on the diff in CI, and live on every shell command through [`hooks/irreversible-before-run.py`](hooks/irreversible-before-run.py), in warning mode.
 
 Honestly (Makoto): the falsifiers are only as sharp as the checks behind them, and **one of sixteen now has a check behind it.** The other fifteen are still prose you hold yourself to. "Done is what the gates return" assumes you have gates — the harness names the discipline; you still bring the build. It is small on purpose, and it grows by use. Precepts, starter agents, and better falsifiers are the parts most worth contributing.
 

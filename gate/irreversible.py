@@ -100,10 +100,19 @@ EPHEMERAL_SEGMENTS = frozenset({
     "tmp", "temp", ".tmp", ".temp", "scratch", ".scratch",
     ".cache", ".caches", ".parcel-cache", ".turbo", ".gradle", ".terraform",
     ".venv", "venv", ".virtualenv", "__pycache__", ".pytest_cache",
-    ".mypy_cache", ".ruff_cache", ".tox", ".eggs",
+    ".mypy_cache", ".ruff_cache", ".tox", ".eggs", ".phpunit.cache",
     ".next", ".nuxt", ".svelte-kit", ".astro", ".output", ".vercel", ".netlify",
     ".serverless", ".sass-cache", "DerivedData", "logs",
+    # `out`: the static export of Next.js and the build tree of IntelliJ and javac.
+    # Measured over 27,000 real shell commands before it was added: 14 of the gate's
+    # findings were `rm -rf apps/frontend/out && … build`, every one a rebuild.
+    "out",
 })
+
+# A shell redirection is not an operand. `rm -rf dist 2>/dev/null` names one target,
+# not two — and the gate once reported `2>/dev/null` as a path it could not prove
+# disposable (16 of 182 findings over the same 27,000 commands).
+REDIRECTION = re.compile(r"^(\d*>>?|&>|<<?)")
 EPHEMERAL_ABS_PREFIXES = ("/tmp/", "/var/tmp/", "/private/tmp/",
                           "/var/folders/", "/private/var/folders/", "/dev/shm/")
 EPHEMERAL_EXACT = frozenset({"/tmp", "/var/tmp", "/private/tmp", "/dev/shm"})
@@ -198,10 +207,23 @@ def is_tracked(path: str) -> bool:
 
 # --- scanning ----------------------------------------------------------------
 
+def path_exists(p: Path) -> bool:
+    """`Path.exists()` on Python 3.12 and older raises OSError for a name the filesystem
+    cannot hold (ENAMETOOLONG, errno 36); 3.13 returns False. A gate that raises inside a
+    judgement exits 2 and reports nothing — measured in CI on `rm -rf src/lib <500 chars>`:
+    the tracked path went unreported because the junk operand beside it broke the probe.
+    A name the filesystem rejects is not a path that exists; it is not a reason to stop."""
+    try:
+        os.stat(p)
+        return True
+    except OSError:
+        return False
+
+
 def rel_to_root(path: Path) -> str:
     try:
         return str(path.resolve().relative_to(ROOT.resolve()))
-    except ValueError:
+    except (ValueError, OSError):
         return str(path)
 
 
@@ -291,11 +313,11 @@ def doc_line_numbers(path: str) -> frozenset[int]:
     the per-line comment test in `is_doc_line` still applies.
     """
     p = ROOT / path
-    if not p.is_file():
-        p = Path(path)
-        if not p.is_file():
-            return frozenset()
     try:
+        if not p.is_file():
+            p = Path(path)
+            if not p.is_file():
+                return frozenset()
         lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
     except OSError:
         return frozenset()
@@ -477,6 +499,8 @@ def flags_and_operands(tokens: tuple[str, ...]) -> tuple[set[str], list[str]]:
         if tok == "--":
             end_of_flags = True
             continue
+        if REDIRECTION.match(tok):
+            continue
         if not end_of_flags and tok.startswith("--"):
             flags.add(tok.split("=", 1)[0])
         elif not end_of_flags and tok.startswith("-") and len(tok) > 1:
@@ -525,11 +549,11 @@ def classify_target(raw: str) -> tuple[str, str]:
     if norm.startswith("/"):
         try:
             candidate = str(Path(norm).resolve().relative_to(ROOT.resolve()))
-        except ValueError:
+        except (ValueError, OSError):
             return "outside", "outside the repository, and not provably disposable"
     if is_tracked(candidate):
         return "tracked", "tracked in git"
-    if (ROOT / candidate).exists():
+    if path_exists(ROOT / candidate):
         return "inside", "inside the repository"
     return "outside", "not a path this gate can prove is disposable"
 

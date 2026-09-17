@@ -13,3 +13,6 @@
 # purpose, so the gate can be shown to catch them. Judging them would make the
 # repo unable to test its own falsifier.
 tests/test_irreversible.py
+# Same reason for the live hook's suite: it hands the hook the very commands the
+# gate exists to catch, as strings, inside a throwaway repository.
+tests/test_irreversible_hook.py
